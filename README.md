@@ -1,14 +1,10 @@
 
-This is my attempt to learn how to create a 2-D video game. 
-
-I will be using Python as the programming language. Pygame was recommended when creating my first game. 
-
-I will attempt to build Space Invaders. 
+This is my attempt to learn how to create a 2-D video game. I will be using Python as the programming language. Pygame was recommended when creating my first game. I will attempt to build Space Invaders. 
 
 Game Process - 
-   1. Checking the player input (the event loop)         <-------|
-   2. Use that information to place elements in the screen       |
-    Result = Creates an image                            >--------|
+   1. Checking the player input (the event loop)              <-------|
+   2. Use that information to place elements in the screen            |
+        Result = Creates an image                            >--------|
 
 Pygame - 
    1. Helps draws images. 

@@ -12,7 +12,7 @@ Pygame -
        (input() stops the game, therefore useless of game)
    3. Made only for simply game. (Typically 2-D games).
 
- Deciding Frame rate of the game -
+Deciding Frame rate of the game -
    1. Strong PC can handle high frame rate
    Ideally - 
        - Should use constant framerate
@@ -20,8 +20,8 @@ Pygame -
            * 60 fps ceiling
            * 60 fps floor 
 
- Displaying Images -
-   Using surfaces:
+Displaying Images -
+   1. Using surfaces:
        - Display Surface (The game window)
            * Can only be one
        - Regular Surface (Essential an image)

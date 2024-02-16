@@ -17,6 +17,7 @@ text_surface = test_font.render("Space Invaders", False, "White")
 enemy1_surface = pygame.image.load("Images/enemy1.png")
 enemy2_surface = pygame.image.load("Images/enemy2.png")
 enemy3_surface = pygame.image.load("Images/enemy3.png")
+shooter_surface = pygame.image.load("Images/shooter.png")
 
 # Game variables
 enemy1_x_position = 400
@@ -25,6 +26,8 @@ enemy2_x_position = 400
 enemy2_y_position = 450
 enemy3_x_position = 400
 enemy3_y_position = 500
+shooter_x_position = 550
+shooter_y_position = 400
 
 
 #Create a infinite loop using a while true loop
@@ -49,6 +52,7 @@ while True:
         screen.blit(enemy1_surface, (enemy1_x_position, enemy1_y_position)) 
         screen.blit(enemy2_surface, (enemy2_x_position, enemy2_y_position)) 
         screen.blit(enemy3_surface, (enemy3_x_position, enemy3_y_position)) 
+        screen.blit(shooter_surface, (shooter_x_position, shooter_y_position)) 
 
     # Update everything
     pygame.display.update()

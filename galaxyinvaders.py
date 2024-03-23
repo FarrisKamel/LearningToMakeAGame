@@ -11,26 +11,28 @@ pygame.init()   #Initiate pygame
 screen = pygame.display.set_mode((800,800))      #Create main display screen  
 pygame.display.set_caption("Learning Pygame | Space Invaders | Farris Alqalam")    #Set a window caption
 clock = pygame.time.Clock()    # Create a clock object to help us keep track of fps
-title_test_font = pygame.font.Font("fonts/space_invader1.otf", 100)      #Use a font for text
+title_test_font = pygame.font.Font("fonts/space_invader1.otf", 120)      #Use a font for text
 score_test_font = pygame.font.Font("fonts/space_invader1.otf", 50)      #Use a font for text
-start_game_test_font = pygame.font.Font("fonts/space_invader1.otf", 75)      #Use a font for text
-
-# TODO: Prob going to delete these 
-game_start_1 = True   # this is the state of the game
-game_start_2 = False
-game_active = False  # This is the state of the game
-game_over = False   # This is the state of the game
+start_game_test_font = pygame.font.Font("fonts/space_invader1.otf", 50)      #Use a font for text
+end_game_test_font = pygame.font.Font("fonts/space_invader1.otf", 150)      #Use a font for text
+play_again_test_font = pygame.font.Font("fonts/space_invader1.otf", 50)      #Use a font for text
 
 #Surfaces used in game
 background_surface = pygame.image.load("Images/background.jpeg").convert()
 title_surface = title_test_font.render("Space Invaders", False, "White")
-title_rec = title_surface.get_rect(center = (400, 150))
+title_rec = title_surface.get_rect(center = (400, 350))
 start_game_surface = start_game_test_font.render("Start Game", False, "White")
-start_game_rec = start_game_surface.get_rect(center = (400,600))
+start_game_rec = start_game_surface.get_rect(center = (400,500))
 start_game_surface_2 = start_game_test_font.render("Start Game", False, "Black")
-start_game_rec_2 = start_game_surface.get_rect(center = (400,600))
+start_game_rec_2 = start_game_surface.get_rect(center = (400,500))
 score_surface = score_test_font.render("Score: ", False, "White")
 score_rec = score_surface.get_rect(center = (100, 50))
+end_title_surface = end_game_test_font.render("Game Over", False, "Red")
+end_title_rec = end_title_surface.get_rect(center = (400, 350))
+end_game_surface = play_again_test_font.render("Play Again", False, "White")
+end_game_rec = end_game_surface.get_rect(center = (400,450))
+end_game_surface_2 = play_again_test_font.render("Play Again", False, "Black")
+end_game_rec_2 = end_game_surface_2.get_rect(center = (400,450))
 
 # TODO: Prob going to delete later
 bullet_surface = pygame.image.load("Images/bullet.png").convert_alpha()
@@ -42,12 +44,19 @@ class Shooter(pygame.sprite.Sprite):
 
         self.x = x 
         self.y = y 
-        self.velocity = 6
-        
-    def draw(self):
-        
+        self.velocity = 4
+        self.hitbox = [x+10, y+10]
         self.image = pygame.image.load("Images/shooter.png").convert_alpha()
         self.rect = self.image.get_rect(midtop = (self.x, self.y)) 
+        
+    def draw(self, state):
+       
+        if state == 1:
+            self.image = pygame.image.load("Images/shooter.png").convert_alpha()
+            self.rect = self.image.get_rect(midtop = (self.x, self.y)) 
+        else:
+            self.image = pygame.image.load("Images/dead_shooter.png").convert_alpha()
+            self.rect = self.image.get_rect(midtop = (self.x, self.y)) 
         screen.blit(self.image, self.rect)
 
 
@@ -103,7 +112,7 @@ class Bullet(object):
         pygame.draw.circle(screen, self.color, (self.x, self.y), self.radius)
 
 
-def redrawGameWindow(screen_type):
+def redrawGameWindow(screen_type, state):
     if screen_type == 1:
         screen.blit(background_surface, (0,0))
         screen.blit(title_surface, title_rec) 
@@ -122,13 +131,21 @@ def redrawGameWindow(screen_type):
         screen.blit(score_surface, score_rec) 
         enemies_group.draw(screen)
         enemies_group.update() 
-        shooter.draw()
+        shooter.draw(state)
         shooter.update()
         screen.blit(bullet_surface, bullet_rec)
         screen.blit(bullet_surface, bullet_rec)
         
-    else:
-        screen.fill("Green")
+    elif screen_type == 4:
+        screen.blit(background_surface, (0,0))
+        screen.blit(end_title_surface, end_title_rec) 
+        screen.blit(end_game_surface, end_game_rec) 
+    
+    elif screen_type == 5:
+        screen.blit(background_surface, (0,0))
+        screen.blit(end_title_surface, end_title_rec) 
+        pygame.draw.rect(screen, "White", end_game_rec_2)
+        screen.blit(end_game_surface_2, end_game_rec_2) 
     
     pygame.display.update()
 
@@ -140,11 +157,11 @@ def bulletMoveUp(bullet_rec):
     new_bullet_rec = bullet_rec.move(0, -4)
     return new_bullet_rec
 
-#Groups
 # Creating the enemies
 enemies_group = pygame.sprite.Group()
 enemy_position_for_spawn = [(x, y) for x in range (200, 700, 70) for y in range(200, 500, 70)]
 count = 0
+
 # Placing the enemies in the position they need to be
 for position in enemy_position_for_spawn:
     enemies_group.add(Enemy(count, position[0], position[1]))  
@@ -152,11 +169,9 @@ for position in enemy_position_for_spawn:
     if count > 2:
         count = 0
 
-# Creating the Shooter group
-shooter = Shooter(400, 700)
-
-# Keep track of screen type
-screen_type = 1
+shooter = Shooter(400, 700)     # Creating the Shooter group
+screen_type = 1         # Keep track of screen type
+shooter_state = 1       # Used to keep track of the shooters state
 
 #Create a infinite loop using a while true loop
 while True:
@@ -176,30 +191,47 @@ while True:
 
         if screen_type == 1:    
             if start_game_rec.collidepoint(mouse_position):
-                screen_type = 2 
+                screen_type = 2                         # Set the screen_type to select mode
 
         if screen_type == 2:    
             if not start_game_rec.collidepoint(mouse_position):
-                screen_type = 1 
+                screen_type = 1                         # Set screen_type to home mode
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if start_game_rec.collidepoint(event.pos):
                     shooter.x, shooter.y = 400, 700     # Set the shooters in the correct position 
-                    screen_type = 3                     
+                    shooter_state = 1                   # Set the shooters state to alive
+                    screen_type = 3                     # Set screen_type to game 
 
-             
+        if screen_type == 3:
+            if pygame.sprite.spritecollide(shooter, enemies_group, False):
+                shooter_state = 2                       # Set shooter_state to dead
+                screen_type = 4                         # Set the screen_type to game over screen
+
+        if screen_type == 4:
+            if end_game_rec.collidepoint(mouse_position):
+                screen_type = 5                         # Set the screen_type to select mode
+
+        if screen_type == 5:    
+            if not end_game_rec.collidepoint(mouse_position):
+                screen_type = 4                         # Set screen_type to home mode
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if end_game_rec.collidepoint(event.pos):
+                    shooter.x, shooter.y = 400, 700     # Set the shooters in the correct position 
+                    shooter_state = 1                   # Set the shooters state to alive
+                    screen_type = 3                     # Set screen_type to game 
+                
+    
+    # Continous Movement
     keys = pygame.key.get_pressed()
     if keys[pygame.K_UP]:
-        # print("Move U")
         shooter.y -= shooter.velocity
     if keys[pygame.K_DOWN]:
-        # print("Move U")
         shooter.y += shooter.velocity
     if keys[pygame.K_RIGHT]:
-        # print("Move Right")
         shooter.x += shooter.velocity
     if keys[pygame.K_LEFT]:
-        # print("Move Left")
         shooter.x -= shooter.velocity 
 
     # Keep the shooter within the screen boundaries
@@ -208,7 +240,7 @@ while True:
 
     # Update everything    
     # pygame.display.update()
-    redrawGameWindow(screen_type)
+    redrawGameWindow(screen_type, shooter_state)
 
     # This till pygame that this while loop should not
     # run faster than 60 time per second. 

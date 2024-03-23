@@ -2,9 +2,10 @@
 This is my attempt to learn how to create a 2-D video game. I will be using Python as the programming language. Pygame was recommended when creating my first game. I will attempt to build Space Invaders. 
 
 Game Process - 
-   1. Checking the player input (the event loop)              <-------|
-   2. Use that information to place elements in the screen            |
-        - Result = Creates an image                          >--------|
+   1. Checking the player input (the event loop)           
+   2. Use that information to place elements in the screen            
+        - Result = Creates an image                         
+   3. Repeat 1 and 2 
 
 Pygame - 
    1. Helps draws images. 
@@ -35,6 +36,7 @@ Images -
    3. "enemy3" By smalllikeart - https://www.flaticon.com/free-icon/alien_3823688?term=space+invader+enemy&page=1&position=36&origin=search&related_id=3823688
    4. "shooter" By Smashicons - https://www.flaticon.com/free-icon/space-invaders_705975?term=space+invader+enemy&page=1&position=11&origin=search&related_id=705975
    5. "background" by kues1 - https://www.freepik.com/free-photo/abstract-geometric-background-shapes-texture_20386173.htm#query=space%20invaders%20background&position=20&from_view=keyword&track=ais&uuid=9d2cf759-8df2-4a09-963d-8bd92ba1bfc2
+   6. "bullet" - https://www.pixilart.com/draw/aliens-space-invaders-bullet-200442b9509d362
 
 Font - 
    1. "space_invader_font" - https://www.dafontfree.co/space-invaders-font/

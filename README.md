@@ -37,7 +37,7 @@ Images -
    4. "shooter" By Smashicons - https://www.flaticon.com/free-icon/space-invaders_705975?term=space+invader+enemy&page=1&position=11&origin=search&related_id=705975
    5. "dead_shooter" By Aldo Cervantes - https://www.flaticon.com/free-icon/explosion_2147238?term=explosions&related_id=2147238
    6. "background" by kues1 - https://www.freepik.com/free-photo/abstract-geometric-background-shapes-texture_20386173.htm#query=space%20invaders%20background&position=20&from_view=keyword&track=ais&uuid=9d2cf759-8df2-4a09-963d-8bd92ba1bfc2
-   7. "bullet" - https://www.pixilart.com/draw/aliens-space-invaders-bullet-200442b9509d362
+   7. "bullet" - by Smashicons - https://www.flaticon.com/free-icon/paintball_3547800?term=bullet&page=1&position=82&origin=search&related_id=3547800 
 
 Font - 
    1. "space_invader_font" - https://www.dafontfree.co/space-invaders-font/

@@ -1,4 +1,4 @@
-# Galaxy Invaders
+# Galaxy Invaders  
 
 ## Overview
 This is my attempt to learn how to create a 2-D video game. I will be using Python as the programming language. Pygame was recommended when creating my first game. I will attempt to build a Space Invaders inspired game. 

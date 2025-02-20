@@ -9,7 +9,7 @@ from random import randint, choice
 #Game Setup
 pygame.init()   #Initiate pygame 
 screen = pygame.display.set_mode((800,800))      #Create main display screen  
-pygame.display.set_caption("Learning Pygame | Space Invaders | Farris Alqalam")    #Set a window caption
+pygame.display.set_caption("Learning Pygame | Galaxy Invaders | Farris Alqalam")    #Set a window caption
 clock = pygame.time.Clock()    # Create a clock object to help us keep track of fps
 title_test_font = pygame.font.Font("fonts/space_invader1.otf", 120)      #Use a font for text
 score_test_font = pygame.font.Font("fonts/space_invader1.otf", 50)      #Use a font for text
@@ -19,7 +19,7 @@ play_again_test_font = pygame.font.Font("fonts/space_invader1.otf", 50)      #Us
 
 #Surfaces used in game
 background_surface = pygame.image.load("Images/background.jpeg").convert()
-title_surface = title_test_font.render("Space Invaders", False, "White")
+title_surface = title_test_font.render("Galaxy Invaders", False, "White")
 title_rec = title_surface.get_rect(center = (400, 350))
 
 # Start screen surfaces
